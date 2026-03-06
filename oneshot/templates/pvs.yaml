@@ -8,7 +8,7 @@ spec:
   capacity:
     storage: 2Gi
   hostPath:
-    path: {{ .Values.oneshot.host.markdownDir }}
+    path: {{ .Values.oneshot.host.syncDir }}
     type: ""
   persistentVolumeReclaimPolicy: Retain
   volumeMode: Filesystem

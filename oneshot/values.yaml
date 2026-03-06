@@ -53,7 +53,7 @@ oneshot:
       value: 50051
   nodeSelector: friclu-1
   host:
-    markdownDir: "/volumes/syncthing"
+    syncDir: "/volumes/syncthing"
 
 oneshotMcp:
   image: oneshot-mcp
