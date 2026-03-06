@@ -33,7 +33,14 @@ spec:
           volumeMounts:
             - name: sync-dir
               mountPath: /sync
+            - mountPath: {{ .Values.oneshot.config.oneshotEnvFile }}
+              name: oneshot-env-file
+              subPath: .env
       volumes:
         - name: sync-dir
           persistentVolumeClaim:
             claimName: sync-dir
+        - name: oneshot-env-file
+          secret:
+            defaultMode: 420
+            secretName: oneshot-env-file

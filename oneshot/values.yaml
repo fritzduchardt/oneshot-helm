@@ -1,8 +1,8 @@
-registry: ""
+registry: "fritzduchardt"
 
 oneshotUi:
   image: oneshot-ui
-  tag: latest
+  tag: main
   replicas: 1
   service:
     port: 3000
@@ -21,16 +21,18 @@ oneshotUi:
 
 oneshot:
   image: oneshot
-  tag: latest
+  tag: main
   replicas: 1
   service:
     port: 8080
     targetPort: 8080
+  config:
+    oneshotEnvFile: /app/.oneshot/.env
   env:
     - name: OS_CONFIG_ENV_FILE
-      value: /app/src/.oneshot/.env
+      value: /app/.oneshot/.env
     - name: OS_CONFIG_PATTERN_DIR
-      value: /app/src/.oneshot/patterns
+      value: /app/.oneshot/patterns
     - name: OS_MARKDOWN_BASE_DIR
       value: /sync
     - name: OS_MARKDOWN_VAULT_DIR_1
@@ -41,13 +43,21 @@ oneshot:
       value: /sync/FritzSync/patterns
     - name: LOG_LEVEL
       value: info
+    - name: MCP_URL
+      value: http://oneshot-mcp:8081
+    - name: WEAVIATE_HOST
+      value: weaviate.weaviate
+    - name: WEAVIATE_PORT
+      value: 80
+    - name: WEAVIATE_GRPC_PORT
+      value: 50051
   nodeSelector: friclu-1
   host:
     markdownDir: "/volumes/syncthing"
 
 oneshotMcp:
   image: oneshot-mcp
-  tag: latest
+  tag: main
   replicas: 1
   service:
     port: 9000
