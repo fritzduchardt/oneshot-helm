@@ -1,0 +1,38 @@
+registry: ""
+
+oneshot:
+  image: oneshot
+  tag: latest
+  replicas: 1
+  service:
+    port: 8080
+    targetPort: 8080
+  env: []
+  nodeSelector: {}
+  host:
+    markdownDir: ""
+    patternDir: ""
+
+oneshotUi:
+  image: oneshot-ui
+  tag: latest
+  replicas: 1
+  service:
+    port: 3000
+    targetPort: 3000
+  env: []
+  ingress:
+    className: "nginx"
+    hosts: oneshot.duchardt.net
+    tlsSecretName: oneshot-certificate
+    clusterIssuer: http01
+
+oneshotMcp:
+  image: oneshot-mcp
+  tag: latest
+  replicas: 1
+  service:
+    port: 9000
+    targetPort: 9000
+  env: []
+  nodeSelector: {}

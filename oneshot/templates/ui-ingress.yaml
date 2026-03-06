@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: oneshot-ui
+  labels:
+    app.kubernetes.io/name: oneshot
+    app.kubernetes.io/component: oneshot-ui
+spec:
+  {{- if .Values.oneshotUi.ingress.className }}
+  ingressClassName: {{ .Values.oneshotUi.ingress.className }}
+  {{- end }}
+  tls:
+    - hosts:
+      - {{ .Values.oneshotUi.ingress.host }}
+      secretName: {{ .Values.oneshotUi.ingress.tlsSecretName }}
+  rules:
+    - http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: oneshot-ui
+                port:
+                  number: {{ .Values.oneshotUi.service.port }}

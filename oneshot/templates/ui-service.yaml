@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: oneshot-ui
+  labels:
+    app.kubernetes.io/name: oneshot
+    app.kubernetes.io/component: oneshot-ui
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: oneshot
+    app.kubernetes.io/component: oneshot-ui
+  ports:
+    - name: http
+      port: {{ .Values.oneshotUi.service.port }}
+      targetPort: {{ .Values.oneshotUi.service.targetPort }}

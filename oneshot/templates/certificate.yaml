@@ -1,0 +1,17 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: oneshot-certificate
+spec:
+  dnsNames:
+    - {{ .Values.oneshotUi.ingress.host | quote }}
+  duration: 2160h
+  issuerRef:
+    kind: ClusterIssuer
+    name: {{ .Values.ingress.clusterIssuer }}
+  renewBefore: 360h
+  secretName: {{ .Values.ingress.tls.secretName | quote }}
+  subject:
+    organizations:
+      - friclu
+  {{- end }}

@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: oneshot-ui
+  labels:
+    app.kubernetes.io/name: oneshot
+    app.kubernetes.io/component: oneshot-ui
+spec:
+  replicas: {{ .Values.oneshotUi.replicas }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: oneshot
+      app.kubernetes.io/component: oneshot-ui
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: oneshot
+        app.kubernetes.io/component: oneshot-ui
+    spec:
+      containers:
+        - name: oneshot-ui
+          image: {{ include "oneshot.image" (dict "image" .Values.oneshotUi.image "tag" .Values.oneshotUi.tag "Values" .Values) }}
+          ports:
+            - containerPort: {{ .Values.oneshotUi.service.targetPort }}
+          {{- if .Values.oneshotUi.env }}
+          env:
+            {{- toYaml .Values.oneshotUi.env | nindent 12 }}
+          {{- end }}
