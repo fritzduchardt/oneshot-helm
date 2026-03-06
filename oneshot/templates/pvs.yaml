@@ -1,29 +1,14 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: markdown-dir
+  name: sync-dir
 spec:
   accessModes:
     - ReadWriteOnce
   capacity:
     storage: 2Gi
   hostPath:
-    path: {{ .Values.oneshot.host.markdownDir }}
-    type: ""
-  persistentVolumeReclaimPolicy: Retain
-  volumeMode: Filesystem
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: pattern-dir
-spec:
-  accessModes:
-    - ReadWriteOnce
-  capacity:
-    storage: 2Gi
-  hostPath:
-    path: {{ .Values.oneshot.host.patternDir }}
+    path: {{ .Values.oneshot.host.syncDir }}
     type: ""
   persistentVolumeReclaimPolicy: Retain
   volumeMode: Filesystem

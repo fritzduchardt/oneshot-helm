@@ -1,18 +1,5 @@
 registry: ""
 
-oneshot:
-  image: oneshot
-  tag: latest
-  replicas: 1
-  service:
-    port: 8080
-    targetPort: 8080
-  env: []
-  nodeSelector: {}
-  host:
-    markdownDir: ""
-    patternDir: ""
-
 oneshotUi:
   image: oneshot-ui
   tag: latest
@@ -20,7 +7,9 @@ oneshotUi:
   service:
     port: 3000
     targetPort: 3000
-  env: []
+  env:
+    - name: PORT
+      value: 3000
   ingress:
     className: "nginx"
     host: oneshot.duchardt.net
@@ -30,6 +19,32 @@ oneshotUi:
     authFile: ""
     secretName: oneshot-ui-basic-auth
 
+oneshot:
+  image: oneshot
+  tag: latest
+  replicas: 1
+  service:
+    port: 8080
+    targetPort: 8080
+  env:
+    - name: OS_CONFIG_ENV_FILE
+      value: /app/src/.oneshot/.env
+    - name: OS_CONFIG_PATTERN_DIR
+      value: /app/src/.oneshot/patterns
+    - name: OS_MARKDOWN_BASE_DIR
+      value: /sync
+    - name: OS_MARKDOWN_VAULT_DIR_1
+      value: FritzSync/private
+    - name: OS_MARKDOWN_VAULT_DIR_2
+      value: BubaFritzShare/private
+    - name: OS_PATTERN_TEMPLATE_DIR
+      value: /sync/FritzSync/patterns
+    - name: LOG_LEVEL
+      value: info
+  nodeSelector: friclu-1
+  host:
+    markdownDir: "/volumes/syncthing"
+
 oneshotMcp:
   image: oneshot-mcp
   tag: latest
@@ -37,5 +52,15 @@ oneshotMcp:
   service:
     port: 9000
     targetPort: 9000
-  env: []
+  env:
+    - name: OS_CONFIG_PATTERN_DIR
+      value: /app/src/.oneshot/patterns
+    - name: OS_MARKDOWN_BASE_DIR
+      value: /sync
+    - name: OS_MARKDOWN_VAULT_DIR_1
+      value: FritzSync/private
+    - name: OS_MARKDOWN_VAULT_DIR_2
+      value: BubaFritzShare/private
+    - name: LOG_LEVEL
+      value: info
   nodeSelector: {}

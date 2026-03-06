@@ -30,3 +30,10 @@ spec:
           env:
             {{- toYaml .Values.oneshot.env | nindent 12 }}
           {{- end }}
+          volumeMounts:
+            - name: sync-dir
+              mountPath: /sync
+      volumes:
+        - name: sync-dir
+          persistentVolumeClaim:
+            claimName: sync-dir
