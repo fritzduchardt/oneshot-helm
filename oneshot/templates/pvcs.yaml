@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: markdown-dir
+  name: sync-dir
 spec:
   accessModes:
     - ReadWriteOnce
@@ -10,18 +10,4 @@ spec:
       storage: 2Gi
   storageClassName: ""
   volumeMode: Filesystem
-  volumeName: markdown-dir
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: pattern-dir
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 2Gi
-  storageClassName: ""
-  volumeMode: Filesystem
-  volumeName: pattern-dir
+  volumeName: sync-dir

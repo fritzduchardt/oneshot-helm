@@ -15,10 +15,11 @@ spec:
   {{- end }}
   tls:
     - hosts:
-      - {{ .Values.oneshotUi.ingress.host }}
+        - {{ .Values.oneshotUi.ingress.host }}
       secretName: {{ .Values.oneshotUi.ingress.tlsSecretName }}
   rules:
-    - http:
+    - host: {{ .Values.oneshotUi.ingress.host }}
+      http:
         paths:
           - path: /
             pathType: Prefix
