@@ -5,6 +5,10 @@ metadata:
   labels:
     app.kubernetes.io/name: oneshot
     app.kubernetes.io/component: oneshot-ui
+  annotations:
+    nginx.ingress.kubernetes.io/auth-type: basic
+    nginx.ingress.kubernetes.io/auth-secret: {{ .Values.oneshotUi.basicAuth.secretName }}
+    nginx.ingress.kubernetes.io/auth-realm: Authentication Required
 spec:
   {{- if .Values.oneshotUi.ingress.className }}
   ingressClassName: {{ .Values.oneshotUi.ingress.className }}

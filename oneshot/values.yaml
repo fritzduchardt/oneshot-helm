@@ -23,9 +23,12 @@ oneshotUi:
   env: []
   ingress:
     className: "nginx"
-    hosts: oneshot.duchardt.net
+    host: oneshot.duchardt.net
     tlsSecretName: oneshot-certificate
     clusterIssuer: http01
+  basicAuth:
+    authFile: ""
+    secretName: oneshot-ui-basic-auth
 
 oneshotMcp:
   image: oneshot-mcp
