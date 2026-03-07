@@ -23,7 +23,7 @@ oneshotUi:
     targetPort: 3000
   env:
     - name: PORT
-      value: 3000
+      value: "3000"
 
 oneshot:
   image: oneshot
