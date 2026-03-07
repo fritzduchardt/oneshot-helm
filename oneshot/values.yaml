@@ -63,6 +63,8 @@ oneshot:
       value: "80"
     - name: WEAVIATE_GRPC_PORT
       value: "50051"
+    - name: PORT
+      value: "8000"
   nodeSelector:
     kubernetes.io/hostname: friclu-1
   host:
