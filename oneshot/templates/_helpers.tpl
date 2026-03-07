@@ -14,4 +14,3 @@
 {{- $tag := .tag -}}
 {{- printf "%s:%s" $image $tag -}}
 {{- end -}}
-{{- end -}}
