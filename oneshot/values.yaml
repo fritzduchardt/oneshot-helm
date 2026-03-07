@@ -1,4 +1,4 @@
-registry: "fritzduchardt"
+registry: "ghcr.io/fritzduchardt"
 
 nginx:
   image: nginx

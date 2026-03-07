@@ -8,3 +8,10 @@
 {{- printf "%s:%s" $image $tag -}}
 {{- end -}}
 {{- end -}}
+
+{{- define "dockerhub.image" -}}
+{{- $image := .image -}}
+{{- $tag := .tag -}}
+{{- printf "%s:%s" $image $tag -}}
+{{- end -}}
+{{- end -}}
