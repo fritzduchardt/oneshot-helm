@@ -43,4 +43,4 @@ spec:
         - name: oneshot-env-file
           secret:
             defaultMode: 420
-            secretName: oneshot-env-file
+            secretName: {{ Values.oneshot.config.envSecretName }}
