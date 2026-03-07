@@ -37,6 +37,8 @@ spec:
             - mountPath: {{ .Values.oneshot.config.oneshotEnvFile }}
               name: oneshot-env-file
               subPath: .env
+            - mountPath: {{ .Values.oneshot.config.oneshotPatternPath }}
+              name: oneshot-pattern-path
       volumes:
         - name: sync-dir
           persistentVolumeClaim:
@@ -45,3 +47,5 @@ spec:
           secret:
             defaultMode: 420
             secretName: {{ .Values.oneshot.config.envSecretName }}
+        - name: oneshot-pattern-path
+          emptyDir: {}

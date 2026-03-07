@@ -39,6 +39,7 @@ oneshot:
     targetPort: 8000
   config:
     oneshotEnvFile: /app/.oneshot/.env
+    oneshotPatternPath: /app/.oneshot/patterns
     envSecretName: oneshot-env-file
   env:
     - name: OS_CONFIG_ENV_FILE
