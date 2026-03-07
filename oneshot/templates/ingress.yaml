@@ -5,14 +5,6 @@ metadata:
   labels:
     app.kubernetes.io/name: oneshot
     app.kubernetes.io/component: nginx
-  annotations:
-    nginx.ingress.kubernetes.io/auth-type: basic
-    nginx.ingress.kubernetes.io/auth-secret: {{ .Values.nginx.basicAuthSecret }}
-    nginx.ingress.kubernetes.io/auth-realm: Authentication Required
-    nginx.ingress.kubernetes.io/configuration-snippet: |
-      if ($request_uri ~* "^/js/sw\.js$") {
-        auth_basic off;
-      }
 spec:
   {{- if .Values.nginx.ingress.className }}
   ingressClassName: {{ .Values.nginx.ingress.className }}

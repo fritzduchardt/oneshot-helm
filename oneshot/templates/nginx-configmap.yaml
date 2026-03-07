@@ -11,6 +11,9 @@ data:
       listen {{ .Values.nginx.service.targetPort }};
       server_name _;
 
+      auth_basic "Authentication Required";
+      auth_basic_user_file /etc/nginx/auth/.htpasswd;
+
       location /backend/ {
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
@@ -32,4 +35,9 @@ data:
         proxy_send_timeout 300;
         proxy_pass http://oneshot-ui:{{ .Values.oneshotUi.service.port }};
       }
+
+      location = /js/sw.js {
+        auth_basic off;
+        try_files $uri =404;
+       }
     }
