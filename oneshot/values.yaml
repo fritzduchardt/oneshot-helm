@@ -1,5 +1,19 @@
 registry: "fritzduchardt"
 
+nginx:
+  image: nginx
+  tag: "1.29"
+  replicas: 1
+  service:
+    port: 80
+    targetPort: 8080
+  ingress:
+    className: "nginx"
+    host: fritzgpt.duchardt.net
+    tlsSecretName: oneshot-certificate
+    clusterIssuer: http01
+  basicAuthSecret: oneshot-ui-basic-auth
+
 oneshotUi:
   image: oneshot-ui
   tag: main
@@ -10,14 +24,6 @@ oneshotUi:
   env:
     - name: PORT
       value: 3000
-  ingress:
-    className: "nginx"
-    host: oneshot.duchardt.net
-    tlsSecretName: oneshot-certificate
-    clusterIssuer: http01
-  basicAuth:
-    authFile: ""
-    secretName: oneshot-ui-basic-auth
 
 oneshot:
   image: oneshot
@@ -73,4 +79,4 @@ oneshotMcp:
       value: BubaFritzShare/private
     - name: LOG_LEVEL
       value: info
-  nodeSelector: {}
+  nodeSelector: friclu-1
