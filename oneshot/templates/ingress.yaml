@@ -1,0 +1,30 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: oneshot-nginx
+  labels:
+    app.kubernetes.io/name: oneshot
+    app.kubernetes.io/component: nginx
+  annotations:
+    nginx.ingress.kubernetes.io/auth-type: basic
+    nginx.ingress.kubernetes.io/auth-secret: {{ .Values.nginx.basicAuth.secretName }}
+    nginx.ingress.kubernetes.io/auth-realm: Authentication Required
+spec:
+  {{- if .Values.nginx.ingress.className }}
+  ingressClassName: {{ .Values.nginx.ingress.className }}
+  {{- end }}
+  tls:
+    - hosts:
+        - {{ .Values.nginx.ingress.host }}
+      secretName: {{ .Values.nginx.ingress.tlsSecretName }}
+  rules:
+    - host: {{ .Values.nginx.ingress.host }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: oneshot-nginx
+                port:
+                  number: {{ .Values.nginx.service.port }}
