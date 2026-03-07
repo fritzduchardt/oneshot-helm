@@ -24,6 +24,7 @@ spec:
       containers:
         - name: oneshot
           image: {{ include "oneshot.image" (dict "image" .Values.oneshot.image "tag" .Values.oneshot.tag "Values" .Values) }}
+          imagePullPolicy: {{ .Values.oneshot.imagePullPolicy }}
           ports:
             - containerPort: {{ .Values.oneshot.service.targetPort }}
           {{- if .Values.oneshot.env }}

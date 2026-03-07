@@ -20,6 +20,7 @@ spec:
       containers:
         - name: oneshot-ui
           image: {{ include "oneshot.image" (dict "image" .Values.oneshotUi.image "tag" .Values.oneshotUi.tag "Values" .Values) }}
+          imagePullPolicy: {{ .Values.oneshotUi.imagePullPolicy }}
           ports:
             - containerPort: {{ .Values.oneshotUi.service.targetPort }}
           {{- if .Values.oneshotUi.env }}

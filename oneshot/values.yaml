@@ -3,6 +3,7 @@ registry: "ghcr.io/fritzduchardt"
 nginx:
   image: nginx
   tag: "1.29"
+  imagePullPolicy: Always
   replicas: 1
   service:
     port: 80
@@ -17,6 +18,7 @@ nginx:
 oneshotUi:
   image: oneshot-ui
   tag: main
+  imagePullPolicy: Always
   replicas: 1
   service:
     port: 3000
@@ -24,14 +26,17 @@ oneshotUi:
   env:
     - name: PORT
       value: "3000"
+    - name: API_URL
+      value: http://oneshot:8000
 
 oneshot:
   image: oneshot
   tag: main
+  imagePullPolicy: Always
   replicas: 1
   service:
-    port: 8080
-    targetPort: 8080
+    port: 8000
+    targetPort: 8000
   config:
     oneshotEnvFile: /app/.oneshot/.env
     envSecretName: oneshot-env-file
@@ -66,6 +71,7 @@ oneshot:
 oneshotMcp:
   image: oneshot-mcp
   tag: main
+  imagePullPolicy: Always
   replicas: 1
   service:
     port: 9000

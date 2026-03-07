@@ -24,6 +24,7 @@ spec:
       containers:
         - name: oneshot-mcp
           image: {{ include "oneshot.image" (dict "image" .Values.oneshotMcp.image "tag" .Values.oneshotMcp.tag "Values" .Values) }}
+          imagePullPolicy: {{ .Values.oneshotMcp.imagePullPolicy }}
           ports:
             - containerPort: {{ .Values.oneshotMcp.service.targetPort }}
           {{- if .Values.oneshotMcp.env }}
