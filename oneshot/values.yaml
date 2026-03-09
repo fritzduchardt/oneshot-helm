@@ -94,5 +94,13 @@ oneshotMcp:
       value: BubaFritzShare/private
     - name: LOG_LEVEL
       value: info
+    - name: WEAVIATE_HOST
+      value: weaviate.weaviate
+    - name: WEAVIATE_PORT
+      value: "80"
+    - name: WEAVIATE_GRPC_HOST
+      value: weaviate-grpc.weaviate
+    - name: WEAVIATE_GRPC_PORT
+      value: "50051"
   nodeSelector:
     kubernetes.io/hostname: friclu-1
