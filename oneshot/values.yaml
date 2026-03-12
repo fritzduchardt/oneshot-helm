@@ -108,4 +108,6 @@ oneshotMcp:
     kubernetes.io/hostname: friclu-1
 
 postgres:
-    enabled: true
+  enabled: true
+  # Name of the CloudnativePG cluster secret, formatted as <cluster-name>-app
+  secretName: oneshot-app
