@@ -1,0 +1,20 @@
+{{- if  .Values.postgres.enabled }}
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: oneshot
+spec:
+  instances: 1
+  storage:
+    size: 1Gi
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: oneshot
+spec:
+  cluster:
+    name: oneshot
+  name: oneshot
+  owner: app
+{{- end }}
