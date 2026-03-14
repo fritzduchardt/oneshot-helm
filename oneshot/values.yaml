@@ -104,10 +104,8 @@ oneshotMcp:
       value: weaviate-grpc.weaviate
     - name: WEAVIATE_GRPC_PORT
       value: "50051"
+    - name: MONGO_HOST
+      value: mongodb
+
   nodeSelector:
     kubernetes.io/hostname: friclu-1
-
-postgres:
-  enabled: true
-  # Name of the CloudnativePG cluster secret, formatted as <cluster-name>-app
-  secretName: oneshot-app
