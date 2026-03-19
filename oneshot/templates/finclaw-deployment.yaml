@@ -17,10 +17,6 @@ spec:
         app.kubernetes.io/name: oneshot
         app.kubernetes.io/component: finclaw
     spec:
-      {{- if .Values.finclaw.nodeSelector }}
-      nodeSelector:
-        {{- toYaml .Values.finclaw.nodeSelector | nindent 8 }}
-      {{- end }}
       containers:
         - name: finclaw
           image: {{ include "oneshot.image" (dict "image" .Values.finclaw.image "tag" .Values.finclaw.tag "Values" .Values) }}
@@ -31,10 +27,3 @@ spec:
           env:
             {{- include "oneshot.env" .Values.finclaw.env | nindent 12 }}
           {{- end }}
-          volumeMounts:
-            - name: sync-dir
-              mountPath: /sync
-      volumes:
-        - name: sync-dir
-          persistentVolumeClaim:
-            claimName: sync-dir

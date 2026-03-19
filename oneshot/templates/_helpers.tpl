@@ -14,7 +14,6 @@
 {{- $tag := .tag -}}
 {{- printf "%s:%s" $image $tag -}}
 {{- end -}}
-{{- end -}}
 
 {{- define "oneshot.env" -}}
 {{- range $key, $value := . }}
