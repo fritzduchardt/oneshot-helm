@@ -70,6 +70,10 @@ oneshot:
       value: weaviate-grpc.weaviate
     - name: WEAVIATE_GRPC_PORT
       value: "50051"
+    - name: TELEGRAM_BOT_TOKEN
+      value: ""
+    - name: TELEGRAM_CHAT_ID
+      value: ""
   nodeSelector:
     kubernetes.io/hostname: friclu-1
   host:
