@@ -25,5 +25,5 @@ spec:
             - containerPort: {{ .Values.oneshotUi.service.targetPort }}
           {{- if .Values.oneshotUi.env }}
           env:
-            {{- toYaml .Values.oneshotUi.env | nindent 12 }}
+            {{- include "oneshot.env" .Values.oneshotUi.env | nindent 12 }}
           {{- end }}

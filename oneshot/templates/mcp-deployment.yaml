@@ -29,7 +29,7 @@ spec:
             - containerPort: {{ .Values.oneshotMcp.service.targetPort }}
           {{- if .Values.oneshotMcp.env }}
           env:
-            {{- toYaml .Values.oneshotMcp.env | nindent 12 }}
+            {{- include "oneshot.env" .Values.oneshotMcp.env | nindent 12 }}
           {{- end }}
           volumeMounts:
             - name: sync-dir

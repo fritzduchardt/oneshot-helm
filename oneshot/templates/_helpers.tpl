@@ -14,3 +14,10 @@
 {{- $tag := .tag -}}
 {{- printf "%s:%s" $image $tag -}}
 {{- end -}}
+
+{{- define "oneshot.env" -}}
+{{- range $key, $value := . -}}
+- name: {{ $key }}
+  value: {{ $value | quote }}
+{{- end -}}
+{{- end -}}

@@ -1,15 +1,15 @@
-registry: "ghcr.io/fritzduchardt"
+registry: 'ghcr.io/fritzduchardt'
 
 nginx:
   image: nginx
-  tag: "1.29"
+  tag: '1.29'
   imagePullPolicy: Always
   replicas: 1
   service:
     port: 80
     targetPort: 8080
   ingress:
-    className: "nginx"
+    className: 'nginx'
     host: fritzgpt.duchardt.net
     tlsSecretName: oneshot-certificate
     clusterIssuer: http01
@@ -24,10 +24,8 @@ oneshotUi:
     port: 3000
     targetPort: 3000
   env:
-    - name: PORT
-      value: "3000"
-    - name: API_URL
-      value: https://fritzgpt.duchardt.net/backend
+    PORT: '3000'
+    API_URL: https://fritzgpt.duchardt.net/backend
 
 oneshot:
   image: oneshot
@@ -42,42 +40,26 @@ oneshot:
     oneshotPatternPath: /app/.oneshot/patterns
     envSecretName: oneshot-env-file
   env:
-    - name: PORT
-      value: "8000"
-    - name: OS_CONFIG_ENV_FILE
-      value: /app/.oneshot/.env
-    - name: OS_CONFIG_PATTERN_DIR
-      value: /app/.oneshot/patterns
-    - name: OS_MARKDOWN_BASE_DIR
-      value: /sync
-    - name: OS_MARKDOWN_VAULT_DIR_1
-      value: FritzSync/private
-    - name: OS_MARKDOWN_VAULT_DIR_2
-      value: BubaFritzShare/private
-    - name: OS_PATTERN_TEMPLATE_DIR
-      value: /sync/FritzSync/patterns
-    - name: OS_SYNC_PATTERN_DIR
-      value: /sync/oneshot/patterns
-    - name: LOG_LEVEL
-      value: info
-    - name: MCP_URL
-      value: http://oneshot-mcp:9000
-    - name: WEAVIATE_HOST
-      value: weaviate.weaviate
-    - name: WEAVIATE_PORT
-      value: "80"
-    - name: WEAVIATE_GRPC_HOST
-      value: weaviate-grpc.weaviate
-    - name: WEAVIATE_GRPC_PORT
-      value: "50051"
-    - name: TELEGRAM_BOT_TOKEN
-      value: ""
-    - name: TELEGRAM_CHAT_ID
-      value: ""
+    PORT: '8000'
+    OS_CONFIG_ENV_FILE: /app/.oneshot/.env
+    OS_CONFIG_PATTERN_DIR: /app/.oneshot/patterns
+    OS_MARKDOWN_BASE_DIR: /sync
+    OS_MARKDOWN_VAULT_DIR_1: FritzSync/private
+    OS_MARKDOWN_VAULT_DIR_2: BubaFritzShare/private
+    OS_PATTERN_TEMPLATE_DIR: /sync/FritzSync/patterns
+    OS_SYNC_PATTERN_DIR: /sync/oneshot/patterns
+    LOG_LEVEL: info
+    MCP_URL: http://oneshot-mcp:9000
+    WEAVIATE_HOST: weaviate.weaviate
+    WEAVIATE_PORT: '80'
+    WEAVIATE_GRPC_HOST: weaviate-grpc.weaviate
+    WEAVIATE_GRPC_PORT: '50051'
+    TELEGRAM_BOT_TOKEN: ''
+    TELEGRAM_CHAT_ID: ''
   nodeSelector:
     kubernetes.io/hostname: friclu-1
   host:
-    syncDir: "/volumes/syncthing"
+    syncDir: '/volumes/syncthing'
 
 oneshotMcp:
   image: oneshot-mcp
@@ -88,28 +70,16 @@ oneshotMcp:
     port: 9000
     targetPort: 9000
   env:
-    - name: PORT
-      value: "9000"
-    - name: OS_CONFIG_PATTERN_DIR
-      value: /sync/oneshot/patterns
-    - name: OS_MARKDOWN_BASE_DIR
-      value: /sync
-    - name: OS_MARKDOWN_VAULT_DIR_1
-      value: FritzSync/private
-    - name: OS_MARKDOWN_VAULT_DIR_2
-      value: BubaFritzShare/private
-    - name: LOG_LEVEL
-      value: info
-    - name: WEAVIATE_HOST
-      value: weaviate.weaviate
-    - name: WEAVIATE_PORT
-      value: "80"
-    - name: WEAVIATE_GRPC_HOST
-      value: weaviate-grpc.weaviate
-    - name: WEAVIATE_GRPC_PORT
-      value: "50051"
-    - name: MONGO_HOST
-      value: mongodb
-
+    PORT: '9000'
+    OS_CONFIG_PATTERN_DIR: /sync/oneshot/patterns
+    OS_MARKDOWN_BASE_DIR: /sync
+    OS_MARKDOWN_VAULT_DIR_1: FritzSync/private
+    OS_MARKDOWN_VAULT_DIR_2: BubaFritzShare/private
+    LOG_LEVEL: info
+    WEAVIATE_HOST: weaviate.weaviate
+    WEAVIATE_PORT: '80'
+    WEAVIATE_GRPC_HOST: weaviate-grpc.weaviate
+    WEAVIATE_GRPC_PORT: '50051'
+    MONGO_HOST: mongodb
   nodeSelector:
     kubernetes.io/hostname: friclu-1
