@@ -16,7 +16,7 @@
 {{- end -}}
 
 {{- define "oneshot.env" -}}
-{{- range $key, $value := . -}}
+{{- range $key, $value := . }}
 - name: {{ $key }}
   value: {{ $value | quote }}
 {{- end -}}
