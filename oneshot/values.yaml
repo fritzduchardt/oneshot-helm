@@ -87,7 +87,7 @@ oneshotMcp:
 
 finclaw:
   image: finclaw
-  tag: master
+  tag: main
   imagePullPolicy: Always
   replicas: 1
   service:
