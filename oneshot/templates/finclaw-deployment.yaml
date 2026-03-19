@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: finclaw
+  labels:
+    app.kubernetes.io/name: oneshot
+    app.kubernetes.io/component: finclaw
+spec:
+  replicas: {{ .Values.finclaw.replicas }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: oneshot
+      app.kubernetes.io/component: finclaw
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: oneshot
+        app.kubernetes.io/component: finclaw
+    spec:
+      {{- if .Values.finclaw.nodeSelector }}
+      nodeSelector:
+        {{- toYaml .Values.finclaw.nodeSelector | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: finclaw
+          image: {{ include "oneshot.image" (dict "image" .Values.finclaw.image "tag" .Values.finclaw.tag "Values" .Values) }}
+          imagePullPolicy: {{ .Values.finclaw.imagePullPolicy }}
+          ports:
+            - containerPort: {{ .Values.finclaw.service.targetPort }}
+          {{- if .Values.finclaw.env }}
+          env:
+            {{- include "oneshot.env" .Values.finclaw.env | nindent 12 }}
+          {{- end }}
+          volumeMounts:
+            - name: sync-dir
+              mountPath: /sync
+      volumes:
+        - name: sync-dir
+          persistentVolumeClaim:
+            claimName: sync-dir
