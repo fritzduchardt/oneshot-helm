@@ -94,5 +94,5 @@ finclaw:
     port: 9000
     targetPort: 9000
   env:
-    PORT: '9001'
+    PORT: '9000'
     LOG_LEVEL: info
