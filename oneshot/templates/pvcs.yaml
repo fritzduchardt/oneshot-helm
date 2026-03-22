@@ -10,4 +10,4 @@ spec:
       storage: 2Gi
   storageClassName: ""
   volumeMode: Filesystem
-  volumeName: sync-dir
+  volumeName: {{ .Release.Name }}-sync-dir
