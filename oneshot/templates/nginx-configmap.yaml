@@ -6,7 +6,7 @@ metadata:
     app.kubernetes.io/name: oneshot
     app.kubernetes.io/component: nginx
 data:
-  nginx.conf: |
+  oneshot.conf: |
     server {
       listen {{ .Values.nginx.service.targetPort }};
       server_name _;

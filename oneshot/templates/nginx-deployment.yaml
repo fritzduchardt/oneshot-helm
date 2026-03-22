@@ -25,8 +25,8 @@ spec:
             - containerPort: {{ .Values.nginx.service.targetPort }}
           volumeMounts:
             - name: nginx-config
-              mountPath: /etc/nginx/nginx.conf
-              subPath: nginx.conf
+              mountPath: /etc/nginx/conf.d/oneshot.conf
+              subPath: oneshot.conf
             - name: nginx-basic-auth
               mountPath: /etc/nginx/auth/.htpasswd
               subPath: auth
