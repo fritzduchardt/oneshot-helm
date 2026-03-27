@@ -98,3 +98,6 @@ finclaw:
   env:
     PORT: '9000'
     LOG_LEVEL: info
+    PGHOST: oneshot-rw
+    PGDATABASE: oneshot
+    PGUSER: app
