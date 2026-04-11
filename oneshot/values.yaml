@@ -101,4 +101,5 @@ finclaw:
     PGHOST: oneshot-rw
     PGDATABASE: oneshot
     PGUSER: app
+    OS_CONFIG_PATTERN_DIR: /sync/oneshot/patterns
   scrapers: []
