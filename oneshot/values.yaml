@@ -101,3 +101,4 @@ finclaw:
     PGHOST: oneshot-rw
     PGDATABASE: oneshot
     PGUSER: app
+  scrapers: []

@@ -1,0 +1,36 @@
+{{- if .Values.finclaw.enabled }}
+{{- range .Values.finclaw.scrapers }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: finclaw-scraper-{{ .name }}
+  labels:
+    app.kubernetes.io/name: oneshot
+    app.kubernetes.io/component: finclaw-scraper-{{ .name }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: oneshot
+      app.kubernetes.io/component: finclaw-scraper-{{ .name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: oneshot
+        app.kubernetes.io/component: finclaw-scraper-{{ .name }}
+    spec:
+      containers:
+        - name: finclaw-scraper-{{ .name }}
+          image: {{ include "oneshot.image" (dict "image" $.Values.finclaw.image "tag" $.Values.finclaw.tag "Values" $.Values) }}
+          imagePullPolicy: {{ $.Values.finclaw.imagePullPolicy }}
+          command:
+            - sh
+            - -c
+            - {{ .entry_cmd | quote }}
+          {{- if $.Values.finclaw.env }}
+          env:
+            {{- include "oneshot.env" $.Values.finclaw.env | nindent 12 }}
+          {{- end }}
+{{- end }}
+{{- end }}
