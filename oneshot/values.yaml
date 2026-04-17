@@ -42,11 +42,17 @@ oneshot:
   env:
     PORT: '8000'
     OS_CONFIG_ENV_FILE: /app/.oneshot/.env
+    # rendered patterns for usage by oneshot
     OS_CONFIG_PATTERN_DIR: /app/.oneshot/patterns
+    # base dir for all markdown files including patterns and data files
     OS_MARKDOWN_BASE_DIR: /sync
+    # markdown obsidian vault 1
     OS_MARKDOWN_VAULT_DIR_1: FritzSync/private
+    # markdown obsidian vault 2
     OS_MARKDOWN_VAULT_DIR_2: BubaFritzShare/private
+    # location of pattern templates
     OS_PATTERN_TEMPLATE_DIR: /sync/FritzSync/patterns
+    # rendered pattern in sync dir to pass to other services
     OS_SYNC_PATTERN_DIR: /sync/oneshot/patterns
     LOG_LEVEL: info
     MCP_URL_ONESHOT: http://oneshot-mcp:9000
@@ -73,10 +79,16 @@ oneshotMcp:
     targetPort: 9000
   env:
     PORT: '9000'
-    OS_CONFIG_PATTERN_DIR: /sync/oneshot/patterns
+    # rendered pattern for weaviate indexing
+    OS_SYNC_PATTERN_DIR: /sync/oneshot/patterns
+    # markdown obsidian files base
     OS_MARKDOWN_BASE_DIR: /sync
+    # markdown obsidian vault 1
     OS_MARKDOWN_VAULT_DIR_1: FritzSync/private
+    # markdown obsidian vault 2
     OS_MARKDOWN_VAULT_DIR_2: BubaFritzShare/private
+    # location of pattern templates
+    OS_PATTERN_TEMPLATE_DIR: /sync/FritzSync/patterns
     LOG_LEVEL: info
     WEAVIATE_HOST: weaviate.weaviate
     WEAVIATE_PORT: '80'
@@ -101,5 +113,6 @@ finclaw:
     PGHOST: oneshot-rw
     PGDATABASE: oneshot
     PGUSER: app
-    OS_CONFIG_PATTERN_DIR: /sync/oneshot/patterns
+    # rendered patterns for AI
+    OS_SYNC_PATTERN_DIR: /sync/oneshot/patterns
   scrapers: []
