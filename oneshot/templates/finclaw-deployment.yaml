@@ -18,6 +18,10 @@ spec:
         app.kubernetes.io/name: oneshot
         app.kubernetes.io/component: finclaw
     spec:
+      {{- if .Values.oneshot.nodeSelector }}
+      nodeSelector:
+        {{- toYaml .Values.oneshot.nodeSelector | nindent 8 }}
+      {{- end }}
       containers:
         - name: finclaw
           image: {{ include "oneshot.image" (dict "image" .Values.finclaw.image "tag" .Values.finclaw.tag "Values" .Values) }}
