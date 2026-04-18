@@ -31,6 +31,7 @@ spec:
           {{- if $.Values.finclaw.env }}
           env:
             {{- include "oneshot.env" $.Values.finclaw.env | nindent 12 }}
+            {{- include "oneshot.env" .env | nindent 12 }}
           {{- end }}
           volumeMounts:
             - name: sync-dir
