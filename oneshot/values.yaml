@@ -63,6 +63,7 @@ oneshot:
     WEAVIATE_GRPC_PORT: '50051'
     TELEGRAM_BOT_TOKEN: ''
     TELEGRAM_CHAT_ID: ''
+    ME: Fritz
   nodeSelector:
     kubernetes.io/hostname: friclu-1
   host:
