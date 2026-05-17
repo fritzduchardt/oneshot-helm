@@ -5,7 +5,6 @@ metadata:
 spec:
   dnsNames:
     - {{ .Values.nginx.ingress.host | quote }}
-    - {{ .Values.nginx.ingress.streamHost | quote }}
   duration: 2160h
   issuerRef:
     kind: ClusterIssuer

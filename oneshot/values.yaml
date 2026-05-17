@@ -11,7 +11,6 @@ nginx:
   ingress:
     className: 'nginx'
     host: fritzgpt.duchardt.net
-    streamHost: fritzgptstream.duchardt.net
     tlsSecretName: oneshot-certificate
     clusterIssuer: http01
   basicAuthSecret: oneshot-ui-basic-auth
@@ -27,7 +26,6 @@ oneshotUi:
   env:
     PORT: '3000'
     API_URL: https://fritzgpt.duchardt.net/backend
-    STREAM_URL: https://fritzgptstream.duchardt.net/
 
 oneshot:
   image: oneshot
