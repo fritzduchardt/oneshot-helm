@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: oneshot-stream
+  labels:
+    app.kubernetes.io/name: oneshot
+    app.kubernetes.io/component: nginx
+spec:
+  {{- if .Values.nginx.ingress.className }}
+  ingressClassName: {{ .Values.nginx.ingress.className }}
+  {{- end }}
+  tls:
+    - hosts:
+        - {{ .Values.nginx.ingress.streamHost }}
+      secretName: {{ .Values.nginx.ingress.tlsSecretName }}
+  rules:
+    - host: {{ .Values.nginx.ingress.streamHost }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: oneshot
+                port:
+                  number: {{ .Values.oneshot.service.port }}
