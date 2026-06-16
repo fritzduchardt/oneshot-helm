@@ -20,9 +20,8 @@ spec:
         app.kubernetes.io/name: oneshot
         app.kubernetes.io/component: finclaw-scraper-{{ .name }}
     spec:
-      {{- if .nodeSelector }}
-      nodeSelector:
-        {{- toYaml .nodeSelector | nindent 8 }}
+      {{- if .nodeName }}
+      nodeName: {{ .nodeName }}
       {{- end }}
       containers:
         - name: finclaw-scraper-{{ .name }}
