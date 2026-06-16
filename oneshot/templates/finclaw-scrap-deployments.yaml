@@ -24,7 +24,7 @@ spec:
       nodeName: {{ .nodeName }}
       {{- end }}
       containers:
-        - name: finclaw-scraper-{{ .name }}
+        - name: finclaw-scraper
           image: {{ include "oneshot.image" (dict "image" $.Values.finclaw.image "tag" $.Values.finclaw.tag "Values" $.Values) }}
           imagePullPolicy: {{ $.Values.finclaw.imagePullPolicy }}
           command:
