@@ -5,6 +5,8 @@ metadata:
   labels:
     app.kubernetes.io/name: oneshot
     app.kubernetes.io/component: nginx
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "300"
 spec:
   {{- if .Values.nginx.ingress.className }}
   ingressClassName: {{ .Values.nginx.ingress.className }}
