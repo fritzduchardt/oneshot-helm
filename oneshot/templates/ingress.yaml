@@ -6,7 +6,10 @@ metadata:
     app.kubernetes.io/name: oneshot
     app.kubernetes.io/component: nginx
   annotations:
-    nginx.ingress.kubernetes.io/proxy-read-timeout: "300"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: {{ .Values.nginx.ingress.timeouts.readTimeout | default "300" | quote }}
+    nginx.ingress.kubernetes.io/proxy-send-timeout: {{ .Values.nginx.ingress.timeouts.sendTimeout | default "300" | quote }}
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: {{ .Values.nginx.ingress.timeouts.connectTimeout | default "300" | quote }}
+    nginx.ingress.kubernetes.io/proxy-keepalive-timeout: {{ .Values.nginx.ingress.timeouts.readTimeout | default "300" | quote }}
 spec:
   {{- if .Values.nginx.ingress.className }}
   ingressClassName: {{ .Values.nginx.ingress.className }}
