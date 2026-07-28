@@ -1,31 +1,48 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: oneshot-nginx
+  name: oneshot
   labels:
     app.kubernetes.io/name: oneshot
-    app.kubernetes.io/component: nginx
   annotations:
     nginx.ingress.kubernetes.io/proxy-read-timeout: "300s"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "300s"
     nginx.ingress.kubernetes.io/proxy-connect-timeout: "300s"
     nginx.ingress.kubernetes.io/proxy-keepalive-timeout: "300s"
+    nginx.ingress.kubernetes.io/auth-type: basic
+    nginx.ingress.kubernetes.io/auth-secret: {{ .Values.ingress.basicAuthSecret }}
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/proxy-buffering: "off"
+    nginx.ingress.kubernetes.io/proxy-cache: "off"
 spec:
-  {{- if .Values.nginx.ingress.className }}
-  ingressClassName: {{ .Values.nginx.ingress.className }}
-  {{- end }}
+  ingressClassName: {{ .Values.ingress.className }}
   tls:
-    - hosts:
-        - {{ .Values.nginx.ingress.host }}
-      secretName: {{ .Values.nginx.ingress.tlsSecretName }}
+  - hosts:
+    - {{ .Values.ingress.host }}
+    secretName: {{ .Values.ingress.tlsSecretName }}
   rules:
-    - host: {{ .Values.nginx.ingress.host }}
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: oneshot-nginx
-                port:
-                  number: {{ .Values.nginx.service.port }}
+  - host: {{ .Values.ingress.host }}
+    http:
+      paths:
+      - path: /backend/(.*)
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: oneshot
+            port:
+              name: http
+      - path: /image/(.*)
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: oneshot
+            port:
+              name: http
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: oneshot-ui
+            port:
+              name: http

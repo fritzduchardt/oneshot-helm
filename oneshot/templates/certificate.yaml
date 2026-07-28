@@ -4,13 +4,13 @@ metadata:
   name: oneshot-certificate
 spec:
   dnsNames:
-    - {{ .Values.nginx.ingress.host | quote }}
+    - {{ .Values.ingress.host | quote }}
   duration: 2160h
   issuerRef:
     kind: ClusterIssuer
-    name: {{ .Values.nginx.ingress.clusterIssuer }}
+    name: {{ .Values.ingress.clusterIssuer }}
   renewBefore: 360h
-  secretName: {{ .Values.nginx.ingress.tlsSecretName | quote }}
+  secretName: {{ .Values.ingress.tlsSecretName | quote }}
   subject:
     organizations:
       - friclu
