@@ -9,8 +9,12 @@ metadata:
     nginx.ingress.kubernetes.io/auth-secret: {{ .Values.ingress.basicAuthSecret }}
     nginx.ingress.kubernetes.io/rewrite-target: /$1
     nginx.ingress.kubernetes.io/use-regex: "true"
+    # Ensure streaming responses work by disabling buffering, using HTTP/1.1, and increasing timeouts
     nginx.ingress.kubernetes.io/proxy-buffering: "off"
     nginx.ingress.kubernetes.io/proxy-cache: "off"
+    nginx.ingress.kubernetes.io/proxy-http-version: "1.1"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
 spec:
   ingressClassName: {{ .Values.ingress.className }}
   tls:
